@@ -79,22 +79,39 @@ picom_animations() {
 }
 
 clone_config_folders() {
-    # Ensure the target directory exists
-    [ ! -d ~/.config ] && mkdir -p ~/.config
+    # Ask user if they want to use dotconfig files
+    read -p "Do you want to use the dotconfig files? (y/n) " use_dotconfig
 
-    # Iterate over all directories in config/*
-    for dir in config/*/; do
-        # Extract the directory name
-        dir_name=$(basename "$dir")
-
-        # Clone the directory to ~/.config/
-        if [ -d "$dir" ]; then
-            cp -r "$dir" ~/.config/
-            echo "Cloned $dir_name to ~/.config/"
-        else
-            echo "Directory $dir_name does not exist, skipping"
+    if [[ $use_dotconfig =~ ^[Yy]$ ]]; then
+        echo "Setting up dotconfig files..."
+    
+        # Check if .config folder exists
+        if [ ! -d "$HOME/.config" ]; then
+            echo "Creating .config folder..."
+            mkdir "$HOME/.config"
         fi
-    done
+
+        # Clone dotconfig repository
+        echo "Cloning dotconfig repository..."
+        git clone https://github.com/curadotd/dotconfig.git $git_path/dotconfig
+
+        cd $git_path/dotconfig
+        cp -R dunst $HOME/.config/
+        cp -R kitty $HOME/.config/
+        cp -R MangoHud $HOME/.config/
+        cp -R rofi $HOME/.config/
+        cp -R gamemode.ini $HOME/.config/
+        cp -R starship.toml $HOME/.config/
+        cp -R user-dirs.dirs $HOME/.config/
+        cp -R user-dirs.locale $HOME/.config/
+
+        # You may want to add additional steps here, such as:
+        # - Moving files from .config/dotconfig to .config
+        # - Removing the temporary dotconfig folder
+        # - Setting up symlinks if necessary
+    else
+        echo "Skipping dotconfig setup."
+    fi
 }
 
 # Call the function

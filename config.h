@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int refresh_rate    = 60;     /* matches dwm's mouse event processing to your monitor's refresh rate for smoother window interactions */
+static const unsigned int refresh_rate    = 120;     /* matches dwm's mouse event processing to your monitor's refresh rate for smoother window interactions */
 static const unsigned int enable_noborder = 1;      /* toggles noborder feature (0=disabled, 1=enabled) */
 static const unsigned int borderpx        = 1;      /* border pixel of windows */
 static const unsigned int snap            = 26;     /* snap pixel */
@@ -39,8 +39,7 @@ static const char *const autostart[] = {
   "flameshot", NULL,
   "dunst", NULL,
   "picom", "--animations", "-b", NULL,
-  "sh", "-c", "feh --randomize --bg-fill /home/titus/Pictures/backgrounds/*", NULL,
-  "synergy", NULL,
+  "sh", "-c", "feh --randomize --bg-fill /mnt/nas/desktops/*", NULL,
   "slstatus", NULL,
   NULL /* terminate */
 };
@@ -60,8 +59,6 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "kitty",   NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ "alacritty",   NULL,     NULL,       0,         0,          1,           0,        -1 },
-	{ "terminator",	 NULL,     NULL,       0,         0,          1,           0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
 };
 
@@ -143,7 +140,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_4,                                  3)
 	TAGKEYS(                        XK_5,                                  4)
 	{ MODKEY|ShiftMask,             XK_q,          quit,                   {0} }, // exit dwm
-	{ MODKEY|ControlMask,           XK_q,          spawn,                  SHCMD("$HOME/.config/rofi/powermenu.sh")}, // exit dwm
+	{ MODKEY|ControlMask,           XK_q,          spawn,                  SHCMD("$HOME/.config/rofi/powermenu")}, // exit dwm
 	{ MODKEY|ControlMask|ShiftMask, XK_r,          spawn,                  SHCMD("systemctl reboot")}, // reboot system
 	{ MODKEY|ControlMask|ShiftMask, XK_s,          spawn,                  SHCMD("systemctl suspend")}, // suspend system
 };
