@@ -59,7 +59,6 @@ static const Rule rules[] = {
 	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
 	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
 	{ "kitty",   NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ "onboard", NULL,	   NULL,		   0,		  True,		  False,	   -1,	False,	0.00,	1.0,	True,	True},
 	{ "steam_app_default",  NULL,     NULL,           0,         1,          0,          0,        0 },
     { "thunar",							NULL,     NULL,           0,         1,          0,          0,        0 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
