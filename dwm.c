@@ -600,6 +600,23 @@ buttonpress(XEvent *e)
 	}
 	if (ev->window == selmon->barwin) {
 		i = x = 0;
+
+
+
+
+
+
+			
+			
+				
+				arg.ui = 1 << i;
+			} else if (ev->x < x + blw)
+				click = ClkLtSymbol;
+			else if (ev->x > selmon->ww - TEXTW(stext))
+				click = ClkStatusText;
+			else
+
+		}
 		unsigned int occ = 0;
 		for(c = m->clients; c; c=c->next)
 			occ |= c->tags == TAGMASK ? 0 : c->tags;
@@ -616,7 +633,11 @@ buttonpress(XEvent *e)
 			if (i < LENGTH(tags)) {
 				click = ClkTagBar;
 				arg.ui = 1 << i;
-			} else if (ev->x < x + TEXTW(selmon->ltsymbol))
+			} else if (ev->x < x + blw)
+				click = ClkLtSymbol;
+			else if (ev->x > selmon->ww - TEXTW(stext))
+				click = ClkStatusText;
+		    else if (ev->x < x + TEXTW(selmon->ltsymbol))
 				click = ClkLtSymbol;
 			else if (ev->x > selmon->ww - statusw - getsystraywidth()) {
 				x = selmon->ww - statusw - getsystraywidth();
