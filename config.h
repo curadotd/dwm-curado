@@ -153,7 +153,7 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkButton,            0,              Button1,        spawn,          {.v = onboard } },
+	{ ClkButton,            0,              Button1,        spawn,          SHCMD ("onboard") },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 	{ ClkClientWin,         MODKEY,         Button1,        moveorplace,    {.i = 2} },
