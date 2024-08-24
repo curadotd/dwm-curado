@@ -91,7 +91,7 @@ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
 enum { Manager, Xembed, XembedInfo, XLast }; /* Xembed atoms */
 enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
-enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
+enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkButton, ClkWinTitle,
        ClkClientWin, ClkRootWin, ClkLast }; /* clicks */
 
 typedef union {
@@ -603,35 +603,40 @@ buttonpress(XEvent *e)
 		unsigned int occ = 0;
 		for(c = m->clients; c; c=c->next)
 			occ |= c->tags == TAGMASK ? 0 : c->tags;
-		do {
-			/* Do not reserve space for vacant tags */
-			if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
-				continue;
- 			x += TEXTW(tags[i]);
-		} while (ev->x >= x && ++i < LENGTH(tags));
-		if (i < LENGTH(tags)) {
-			click = ClkTagBar;
-			arg.ui = 1 << i;
-		} else if (ev->x < x + TEXTW(selmon->ltsymbol))
-			click = ClkLtSymbol;
-		else if (ev->x > selmon->ww - statusw - getsystraywidth()) {
-			x = selmon->ww - statusw - getsystraywidth();
-			click = ClkStatusText;
-			statussig = 0;
-			for (text = s = stext; *s && x <= ev->x; s++) {
-				if ((unsigned char)(*s) < ' ') {
-					ch = *s;
-					*s = '\0';
-					x += TEXTW(text) - lrpad;
-					*s = ch;
-					text = s + 1;
-					if (x >= ev->x)
-						break;
-					statussig = ch;
+		x += TEXTW(buttonbar);
+		if(ev->x < x) {
+			click = ClkButton;
+		} else {
+			do {
+				/* Do not reserve space for vacant tags */
+				if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
+					continue;
+				x += TEXTW(tags[i]);
+			} while (ev->x >= x && ++i < LENGTH(tags));
+			if (i < LENGTH(tags)) {
+				click = ClkTagBar;
+				arg.ui = 1 << i;
+			} else if (ev->x < x + TEXTW(selmon->ltsymbol))
+				click = ClkLtSymbol;
+			else if (ev->x > selmon->ww - statusw - getsystraywidth()) {
+				x = selmon->ww - statusw - getsystraywidth();
+				click = ClkStatusText;
+				statussig = 0;
+				for (text = s = stext; *s && x <= ev->x; s++) {
+					if ((unsigned char)(*s) < ' ') {
+						ch = *s;
+						*s = '\0';
+						x += TEXTW(text) - lrpad;
+						*s = ch;
+						text = s + 1;
+						if (x >= ev->x)
+							break;
+						statussig = ch;
+					}
 				}
-			}
-		} else
-			click = ClkWinTitle;
+			} else
+				click = ClkWinTitle;
+		}
 	} else if ((c = wintoclient(ev->window))) {
 		focus(c);
 		restack(selmon);
@@ -1022,6 +1027,9 @@ drawbar(Monitor *m)
 
     // Draw tags, indicating the selected, occupied, and urgent tags.
 	x = 0;
+	w = blw = TEXTW(buttonbar);
+	drw_setscheme(drw, scheme[SchemeNorm]);
+	x = drw_text(drw, x, 0, w, bh, lrpad / 2, buttonbar, 0);
 	for (i = 0; i < LENGTH(tags); i++) {
 		/* Do not draw vacant tags */
 		if(!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
