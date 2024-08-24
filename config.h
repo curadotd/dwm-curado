@@ -97,6 +97,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_x,          spawn,                  {.v = termcmd } }, // spawn a terminal
 	{ MODKEY,                       XK_b,          spawn,                  SHCMD ("xdg-open https://")}, // open default browser
 	{ MODKEY,                       XK_p,          spawn,                  SHCMD ("kitty start_orca")}, // spwan thin-client with the vm used for work
+	{ MODKEY,                       XK_c,          spawn,                  SHCMD ("/opt/cursor.AppImage")}, // spwan thin-client with the vm used for work
 	{ MODKEY|ShiftMask,             XK_p,          spawn,                  SHCMD ("flameshot gui -p $HOME/Screenshots/")}, // open flameshot gui for screenshot selection
 	{ MODKEY|ControlMask,           XK_p,          spawn,                  SHCMD ("flameshot gui --clipboard")}, // copy screenshot to clipboard
 	{ MODKEY,                       XK_e,          spawn,                  SHCMD ("thunar")}, // open thunar file manager
