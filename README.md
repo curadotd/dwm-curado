@@ -80,11 +80,11 @@ yajl-devel-2.1.0._4      /usr/include/yajl/yajl_gen.h
 
 Installation
 ------------
-Clone the repository, then compile and install.
+Clone the repository, then use the setup script to install.
 ```sh
 $ git clone https://github.com/curadotd/dwm-curado.git
 $ cd dwm-curado
-$ ./setup.sh
+$ ./setup
 ```
 
 A dwm.desktop file will be placed in /usr/share/xsessions/ so if you are using a login manager you should now be able to select dwm as the window manager when logging in.
