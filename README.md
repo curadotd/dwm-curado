@@ -82,10 +82,9 @@ Installation
 ------------
 Clone the repository, then compile and install.
 ```sh
-$ git clone https://github.com/ChrisTitusTech/dwm-titus.git
-$ cd dwm-titus
-$ make
-$ sudo make install
+$ git clone https://github.com/curadotd/dwm-curado.git
+$ cd dwm-curado
+$ ./setup.sh
 ```
 
 A dwm.desktop file will be placed in /usr/share/xsessions/ so if you are using a login manager you should now be able to select dwm as the window manager when logging in.
