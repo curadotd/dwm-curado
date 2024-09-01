@@ -214,6 +214,7 @@ if [[ $install_lightdm =~ ^[Yy]$ ]]; then
         rocky)
             install_packages lightdm lightdm-gtk
             sudo systemctl enable lightdm
+            sudo systemctl set-default graphical.target
             ;;
     esac
     echo "LightDM has been installed and enabled."
