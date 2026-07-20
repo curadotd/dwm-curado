@@ -16,13 +16,14 @@ static const int topbar                   = 1;      /* 0 means bottom bar */
 #define ICONSIZE                            17      /* icon size */
 #define ICONSPACING                         5       /* space between icon and title */
 #define SHOWWINICON                         1       /* 0 means no winicon */
-static const char *fonts[]                = { "MesloLGS Nerd Font Mono:size=16", "NotoColorEmoji:pixelsize=16:antialias=true:autohint=true"  };
-static const char normbordercolor[]       = "#3B4252";
-static const char normbgcolor[]           = "#2E3440";
-static const char normfgcolor[]           = "#D8DEE9";
-static const char selbordercolor[]        = "#434C5E";
-static const char selbgcolor[]            = "#434C5E";
-static const char selfgcolor[]            = "#ECEFF4";
+static const char *fonts[]                = { "SF Pro Text:size=12", "MesloLGS Nerd Font Mono:size=16", "NotoColorEmoji:pixelsize=16:antialias=true:autohint=true"  };
+/* macOS Tahoe: graphite greys with a cool blue accent */
+static const char normbordercolor[]       = "#2A2B30";
+static const char normbgcolor[]           = "#141417";
+static const char normfgcolor[]           = "#9A9AA3";
+static const char selbordercolor[]        = "#6CB6FF";
+static const char selbgcolor[]            = "#1C1D21";
+static const char selfgcolor[]            = "#F2F2F5";
 
 static const char *colors[][3]      = {
 	/*               fg           bg           border   */
@@ -35,11 +36,11 @@ static const char *const autostart[] = {
   "xset", "s", "noblank", NULL,
   "xset", "-dpms", NULL,
   "dbus-update-activation-environment", "--systemd", "--all", NULL,
-  "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1", NULL,
+  "sh", "-c", "/usr/lib/mate-polkit/polkit-mate-authentication-agent-1 || /usr/libexec/polkit-mate-authentication-agent-1", NULL,
   "flameshot", NULL,
   "dunst", NULL,
-  "picom", "--animations", "-b", NULL,
-  "sh", "-c", "feh --randomize --bg-fill /mnt/nas/desktops/*", NULL,
+  "picom", "-b", NULL, /* blur/rounding/animations come from ~/.config/picom/picom.conf */
+  "sh", "-c", "feh --randomize --bg-fill /mnt/repository/desktops/*", NULL,
   "slstatus", NULL,
   NULL /* terminate */
 };
